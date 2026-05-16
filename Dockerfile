@@ -8,7 +8,13 @@ RUN npm run build && npm run build:ssr
 FROM composer:2 AS vendor
 WORKDIR /app
 COPY composer.json composer.lock ./
-RUN composer install --no-dev --optimize-autoloader --no-interaction --no-scripts
+RUN composer install \
+    --no-dev \
+    --optimize-autoloader \
+    --no-interaction \
+    --no-scripts \
+    --ignore-platform-req=ext-intl \
+    --ignore-platform-req=ext-gd
 
 FROM dunglas/frankenphp:1-php8.2-alpine
 WORKDIR /app
