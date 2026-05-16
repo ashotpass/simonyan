@@ -16,7 +16,7 @@ RUN composer install \
     --ignore-platform-req=ext-intl \
     --ignore-platform-req=ext-gd
 
-FROM dunglas/frankenphp:1-php8.2-alpine
+FROM dunglas/frankenphp:1-php8.4-alpine
 WORKDIR /app
 RUN install-php-extensions pdo_mysql mbstring gd zip intl bcmath
 RUN apk add --no-cache nodejs npm supervisor
