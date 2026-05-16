@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    html { scroll-behavior: smooth; }
+    html[lang="hy"] body { font-family: 'Noto Sans Armenian', system-ui, sans-serif; }
+    html[lang="hy"] h1, html[lang="hy"] h2, html[lang="hy"] h3, html[lang="hy"] h4 {
+        font-family: 'Noto Serif Armenian', serif;
+    }
+    html[lang="en"] body { font-family: 'Inter', system-ui, sans-serif; }
+    html[lang="en"] h1, html[lang="en"] h2, html[lang="en"] h3, html[lang="en"] h4 {
+        font-family: 'Playfair Display', serif;
+    }
+}
+
+@layer components {
+    .container-x { @apply max-w-6xl mx-auto px-5 sm:px-8; }
+    .btn-gold { @apply inline-block bg-gold text-white px-6 py-3 rounded-sm font-medium hover:bg-amber-700 transition-colors duration-200; }
+    .btn-outline { @apply inline-block border border-gold text-gold px-6 py-3 rounded-sm font-medium hover:bg-gold hover:text-white transition-colors duration-200; }
+    .prose-body { @apply leading-relaxed text-charcoal/90 whitespace-pre-line; }
+    .input { @apply w-full border border-charcoal/15 px-3 py-2 focus:border-gold focus:outline-none bg-white; }
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.fade-in { animation: fadeInUp .6s ease-out both; }
