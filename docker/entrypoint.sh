@@ -38,7 +38,15 @@ until php artisan tinker --execute='DB::connection()->getPdo();' > /tmp/db-check
         cat /tmp/db-check.log >&2
         exit 1
     fi
-    echo "Waiting for database... (attempt ${attempts}/${max_attempts})"
+    # Print the actual driver error on the first attempt and every 5th attempt
+    # afterwards so problems (DNS, IPv6, auth, SSL) show up in Railway logs fast
+    # without spamming on every retry.
+    if [ "$attempts" -eq 1 ] || [ $((attempts % 5)) -eq 0 ]; then
+        echo "Waiting for database... (attempt ${attempts}/${max_attempts}) — last error:"
+        sed -n '1,5p' /tmp/db-check.log
+    else
+        echo "Waiting for database... (attempt ${attempts}/${max_attempts})"
+    fi
     sleep 2
 done
 echo "Database is reachable."
