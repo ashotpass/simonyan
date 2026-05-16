@@ -17,6 +17,12 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
+        // Railway (and most PaaS edges) terminate TLS at the load balancer and
+        // forward HTTP to the container. Trust the proxy headers so
+        // $request->secure() reflects the original scheme — otherwise
+        // ForceHttps redirects HTTPS → HTTPS in an infinite loop.
+        $middleware->trustProxies(at: '*');
+
         $middleware->web(append: [
             ForceHttps::class,
             HandleInertiaRequests::class,
