@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\ContactSubmission;
 use App\Models\Director;
 use App\Models\Page;
 use App\Models\Service;
@@ -158,16 +157,13 @@ class ProductionSeeder extends Seeder
         $settings = [
             ['key' => 'phone', 'value_hy' => '+374 00 000 000', 'value_en' => '+374 00 000 000'],
             ['key' => 'email', 'value_hy' => 'info@simonyanslawfirm.am', 'value_en' => 'info@simonyanslawfirm.am'],
-            ['key' => 'email_recipient', 'value_hy' => 'info@simonyanslawfirm.am', 'value_en' => 'info@simonyanslawfirm.am'],
             ['key' => 'address_hy', 'value_hy' => 'ք. Երևան, Մաշտոց 33/1', 'value_en' => null],
-            ['key' => 'address_en', 'value_hy' => null, 'value_en' => 'Mashtots 33/1, Yerevan'], // TODO: client to refine translation
+            ['key' => 'address_en', 'value_hy' => null, 'value_en' => 'Mashtots 33/1, Yerevan'],
             ['key' => 'working_hours_hy', 'value_hy' => 'Երկ-Ուրբ: 09:00 - 18:00', 'value_en' => null],
             ['key' => 'working_hours_en', 'value_hy' => null, 'value_en' => 'Mon-Fri: 09:00 - 18:00'],
             ['key' => 'facebook_url', 'value_hy' => 'https://www.facebook.com/', 'value_en' => 'https://www.facebook.com/'],
             ['key' => 'google_maps_embed', 'value_hy' => 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3047.2!2d44.5!3d40.18!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0:0x0!2sMashtots%2033%2F1!5e0!3m2!1sen!2sam!4v1700000000000', 'value_en' => null],
             ['key' => 'logo_path', 'value_hy' => '/assets/logo.png', 'value_en' => '/assets/logo.png'],
-            ['key' => 'recaptcha_site_key', 'value_hy' => '', 'value_en' => ''],
-            ['key' => 'recaptcha_secret_key', 'value_hy' => '', 'value_en' => ''],
         ];
 
         foreach ($settings as $s) {

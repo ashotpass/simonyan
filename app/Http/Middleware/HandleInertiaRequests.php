@@ -24,7 +24,6 @@ class HandleInertiaRequests extends Middleware
             'locale' => $locale,
             'alt_locale' => $locale === 'hy' ? 'en' : 'hy',
             'settings' => fn () => Setting::map(),
-            'recaptchaSiteKey' => fn () => Setting::map()['recaptcha_site_key']['en'] ?? null,
             'flash' => [
                 'success' => fn () => $request->session()->get('success'),
                 'error' => fn () => $request->session()->get('error'),

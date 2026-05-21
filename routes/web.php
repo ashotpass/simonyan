@@ -34,8 +34,5 @@ foreach (['hy', 'en'] as $locale) {
         Route::get('/'.$slugs[$locale]['services'].'/{slug}', [ServiceController::class, 'show'])->name('services.show');
         Route::get('/'.$slugs[$locale]['director'], [DirectorController::class, 'index'])->name('director');
         Route::get('/'.$slugs[$locale]['contact'], [ContactController::class, 'index'])->name('contact');
-        Route::post('/'.$slugs[$locale]['contact'], [ContactController::class, 'store'])
-            ->middleware('throttle:contact')
-            ->name('contact.store');
     });
 }

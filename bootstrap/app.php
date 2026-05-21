@@ -36,9 +36,6 @@ return Application::configure(basePath: dirname(__DIR__))
         //
     })
     ->booted(function () {
-        RateLimiter::for('contact', function (Request $request) {
-            return [Limit::perHour(3)->by($request->ip())];
-        });
         RateLimiter::for('login', function (Request $request) {
             return [Limit::perMinute(5)->by($request->ip())];
         });

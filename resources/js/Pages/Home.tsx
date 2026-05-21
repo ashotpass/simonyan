@@ -12,30 +12,25 @@ export default function Home({ page, services }: Props) {
     const { locale, settings } = usePage<SharedProps>().props;
     const title = page?.[`title_${locale}`] ?? 'Home';
     const body = page?.[`body_${locale}`] ?? '';
-    const address = settings?.address_hy?.hy || 'Մաշտոց 33/1, Yerevan';
     const phone = settings?.phone?.[locale] ?? '';
     const email = settings?.email?.[locale] ?? '';
+    const address = settings?.[`address_${locale}`]?.[locale] ?? settings?.address_en?.en ?? '';
 
-    const whyBullets: Array<keyof ReturnType<typeof bullets>> = ['why_1', 'why_2', 'why_3', 'why_4'];
-    function bullets() {
-        return { why_1: '', why_2: '', why_3: '', why_4: '' };
-    }
+    const whyBullets = ['why_1', 'why_2', 'why_3', 'why_4'] as const;
 
     const jsonLd = {
         '@context': 'https://schema.org',
         '@type': 'LegalService',
-        name: locale === 'hy' ? 'Սիմոնյան և որդիներ' : 'Simonyan and Sons',
+        name: t(locale, 'company_name'),
         description: page?.[`meta_description_${locale}`] ?? '',
         url: typeof window !== 'undefined' ? window.location.href : '',
         telephone: phone,
         email: email,
         address: {
             '@type': 'PostalAddress',
-            streetAddress: 'Mashtots 33/1',
-            addressLocality: 'Yerevan',
+            streetAddress: address,
             addressCountry: 'AM',
         },
-        geo: { '@type': 'GeoCoordinates', latitude: 40.1872, longitude: 44.5152 },
         areaServed: 'AM',
     };
 
@@ -54,10 +49,10 @@ export default function Home({ page, services }: Props) {
                 <div className="container-x grid md:grid-cols-2 gap-10 items-center">
                     <div data-fade>
                         <p className="text-gold tracking-[0.3em] text-xs uppercase mb-4">
-                            {locale === 'hy' ? 'Փաստաբանական ընկերություն' : 'Law Firm'}
+                            {t(locale, 'company_tagline')}
                         </p>
                         <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6 text-charcoal">
-                            {locale === 'hy' ? 'Սիմոնյան և որդիներ' : 'Simonyan and Sons'}
+                            {t(locale, 'company_name')}
                         </h1>
                         <p className="text-lg text-charcoal/80 leading-relaxed mb-8 prose-body">{body}</p>
                         <div className="flex flex-wrap gap-4">
