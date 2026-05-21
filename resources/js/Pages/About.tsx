@@ -20,7 +20,7 @@ export default function About({ page, director }: Props) {
             <section className="py-20 bg-cream">
                 <div className="container-x max-w-4xl" data-fade>
                     <p className="text-gold tracking-[0.3em] text-xs uppercase mb-4">
-                        {locale === 'hy' ? 'Մեր մասին' : 'About'}
+                        {t(locale, 'about_eyebrow')}
                     </p>
                     <h1 className="text-4xl md:text-5xl font-bold mb-8">{title}</h1>
                     <div className="w-16 h-px bg-gold mb-8" />

@@ -29,9 +29,7 @@ export default function ServiceShow({ service, services }: Props) {
 
                         <div className="mt-12 bg-charcoal text-cream p-8">
                             <p className="text-lg mb-4">
-                                {locale === 'hy'
-                                    ? 'Կապվեք մեզ հետ Ձեր գործի մանրամասների վերաբերյալ խորհրդատվության համար։'
-                                    : 'Contact us for a consultation about your case.'}
+                                {t(locale, 'service_consultation_cta')}
                             </p>
                             <Link href={localePath(locale, 'contact')} className="btn-gold">{t(locale, 'cta_consult')}</Link>
                         </div>

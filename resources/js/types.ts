@@ -41,7 +41,6 @@ export interface SharedProps {
     locale: Locale;
     alt_locale: Locale;
     settings: SettingsMap;
-    recaptchaSiteKey: string | null;
     flash: { success?: string | null; error?: string | null };
     csrf: string;
     [key: string]: unknown;

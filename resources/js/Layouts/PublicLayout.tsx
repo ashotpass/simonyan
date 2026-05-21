@@ -23,10 +23,9 @@ export default function PublicLayout({ children, title, description, pathHy, pat
     const fb = settings?.facebook_url?.[locale] ?? '';
     const appUrl = typeof window !== 'undefined' ? window.location.origin : '';
 
-    const fullTitle = title ? `${title} — Simonyan and Sons` : 'Simonyan and Sons — Law Firm in Yerevan';
-    const desc = description || (locale === 'hy'
-        ? 'Փաստաբանական ընկերություն Երևանում:'
-        : 'Law firm in Yerevan.');
+    const companyName = t(locale, 'company_name');
+    const fullTitle = title ? `${title} — ${companyName}` : t(locale, 'default_meta_title');
+    const desc = description || t(locale, 'default_meta_description');
 
     const [cookieAccepted, setCookieAccepted] = useState(true);
     useEffect(() => {
@@ -65,19 +64,19 @@ export default function PublicLayout({ children, title, description, pathHy, pat
             </Head>
 
             <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 bg-gold text-white px-3 py-2 z-50">
-                {locale === 'hy' ? 'Բաց թողնել դեպի բովանդակություն' : 'Skip to content'}
+                {t(locale, 'skip_to_content')}
             </a>
 
             <header className="sticky top-0 z-40 bg-cream/95 backdrop-blur border-b border-charcoal/10">
                 <div className="container-x flex items-center justify-between py-4 gap-4">
                     <Link href={localePath(locale, 'home')} className="flex items-center gap-3 shrink-0">
-                        <img src="/assets/logo.png" alt="Simonyan and Sons" className="h-12 w-auto" />
+                        <img src="/assets/logo.png" alt={companyName} className="h-12 w-auto" />
                         <span className="hidden md:block leading-tight">
                             <span className="block text-base font-semibold text-charcoal">
-                                {locale === 'hy' ? 'Սիմոնյան և որդիներ' : 'Simonyan and Sons'}
+                                {companyName}
                             </span>
                             <span className="block text-xs text-charcoal/60 tracking-wider uppercase">
-                                {locale === 'hy' ? 'Փաստաբանական ընկերություն' : 'Law Firm'}
+                                {t(locale, 'company_tagline')}
                             </span>
                         </span>
                     </Link>
@@ -121,7 +120,7 @@ export default function PublicLayout({ children, title, description, pathHy, pat
                     <div>
                         <img src="/assets/logo.png" alt="" className="h-14 mb-4" />
                         <p className="text-sm text-cream/80 leading-relaxed">
-                            {locale === 'hy' ? 'Սիմոնյան և որդիներ փաստաբանական ընկերություն' : 'Simonyan and Sons Law Firm'}
+                            {t(locale, 'company_footer')}
                         </p>
                     </div>
                     <div>
@@ -140,7 +139,7 @@ export default function PublicLayout({ children, title, description, pathHy, pat
                     </div>
                 </div>
                 <div className="container-x border-t border-cream/10 mt-10 pt-6 text-center text-xs text-cream/60">
-                    © {new Date().getFullYear()} Simonyan and Sons. {t(locale, 'rights')}.
+                    © {new Date().getFullYear()} {companyName}. {t(locale, 'rights')}.
                 </div>
             </footer>
 
