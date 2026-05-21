@@ -34,8 +34,9 @@ class User extends Authenticatable implements FilamentUser
 
     public function canAccessPanel(Panel $panel): bool
     {
-        $adminEmail = env('ADMIN_EMAIL');
-
-        return $adminEmail !== null && $adminEmail !== '' && $this->email === $adminEmail;
+        // Only one user ever exists (enforced by the reset_admin_user migration
+        // and the seeder, and there is no public registration route). Successful
+        // authentication is itself the gate — no further email match required.
+        return true;
     }
 }

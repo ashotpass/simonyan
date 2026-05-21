@@ -8,7 +8,7 @@ After a push, watch the **Deployments** tab in the Railway dashboard. The first 
 
 - `/hy` and `/en` both render
 - View source on `/hy` — the HTML contains fully-rendered content (SSR working), `<link rel="alternate" hreflang="…">` tags, and the JSON-LD `<script type="application/ml+json">` block
-- `/admin` shows the Filament login (use `ADMIN_EMAIL` / `ADMIN_PASSWORD`)
+- `/admin` shows the Filament login (default: `admin@simonyanslawfirm.am` / `TempAdmin2026!` — change immediately after first login)
 
 ## 2. Add the custom domain in Railway
 

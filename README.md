@@ -25,7 +25,7 @@ Push to `main`. Railway auto-builds the `Dockerfile` and runs `docker/entrypoint
 
 ### Admin access
 
-The first deploy uses `ADMIN_EMAIL` and `ADMIN_PASSWORD` from Railway env vars to create the single admin user. After that, the seeder leaves users alone — change the password from inside the admin panel. There is no public registration.
+The first deploy provisions a single admin user via the `reset_admin_user` migration. Default credentials are `admin@simonyanslawfirm.am` / `TempAdmin2026!` — **change the password immediately** after first login (via Navicat or `UPDATE users SET password = '<bcrypt-hash>' WHERE id = 1`). There is no public registration.
 
 ### Editing site content
 
@@ -48,7 +48,6 @@ See `.env.example`. Critical ones:
 - `SESSION_DRIVER=database` / `CACHE_STORE=database` / `QUEUE_CONNECTION=database`
 - `INERTIA_SSR_ENABLED=true` / `INERTIA_SSR_URL=http://127.0.0.1:13714`
 - `FILAMENT_FILESYSTEM_DISK=public`
-- `ADMIN_EMAIL` / `ADMIN_PASSWORD` — used only on the first deploy
 
 ### reCAPTCHA
 

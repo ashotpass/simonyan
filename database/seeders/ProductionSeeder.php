@@ -6,40 +6,17 @@ use App\Models\Director;
 use App\Models\Page;
 use App\Models\Service;
 use App\Models\Setting;
-use App\Models\User;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Hash;
 
 class ProductionSeeder extends Seeder
 {
     public function run(): void
     {
-        $this->seedAdmin();
+        // Admin user is provisioned by the reset_admin_user migration.
         $this->seedPages();
         $this->seedServices();
         $this->seedDirector();
         $this->seedSettings();
-    }
-
-    private function seedAdmin(): void
-    {
-        if (User::count() > 0) {
-            return;
-        }
-
-        $email = env('ADMIN_EMAIL');
-        $password = env('ADMIN_PASSWORD');
-
-        if (! $email || ! $password) {
-            return;
-        }
-
-        User::create([
-            'name' => 'Admin',
-            'email' => $email,
-            'password' => Hash::make($password),
-            'email_verified_at' => now(),
-        ]);
     }
 
     private function seedPages(): void
