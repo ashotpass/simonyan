@@ -17,12 +17,16 @@ class HandleInertiaRequests extends Middleware
 
     public function share(Request $request): array
     {
-        $locale = app()->getLocale();
-
+        // Resolve locale lazily: Inertia's parent middleware calls share()
+        // BEFORE $next($request), so the SetLocale route middleware hasn't
+        // run yet. Evaluating app()->getLocale() at this point would always
+        // return the default APP_LOCALE, even on /en URLs. Wrapping in
+        // closures defers evaluation until Inertia serializes the response,
+        // by which time SetLocale has set the correct locale.
         return [
             ...parent::share($request),
-            'locale' => $locale,
-            'alt_locale' => $locale === 'hy' ? 'en' : 'hy',
+            'locale' => fn () => app()->getLocale(),
+            'alt_locale' => fn () => app()->getLocale() === 'hy' ? 'en' : 'hy',
             'settings' => fn () => Setting::map(),
             'flash' => [
                 'success' => fn () => $request->session()->get('success'),
