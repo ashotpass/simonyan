@@ -1,6 +1,6 @@
 import { Head, Link, usePage } from '@inertiajs/react';
 import PublicLayout from '@/Layouts/PublicLayout';
-import { localePath, t } from '@/i18n';
+import { localePath, stripHtml, t } from '@/i18n';
 import type { PageRecord, ServiceRecord, SharedProps } from '@/types';
 
 interface Props {
@@ -54,7 +54,7 @@ export default function Home({ page, services }: Props) {
                         <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6 text-charcoal">
                             {t(locale, 'company_name')}
                         </h1>
-                        <p className="text-lg text-charcoal/80 leading-relaxed mb-8 prose-body">{body}</p>
+                        <div className="text-lg text-charcoal/80 leading-relaxed mb-8 prose-body" dangerouslySetInnerHTML={{ __html: body }} />
                         <div className="flex flex-wrap gap-4">
                             <Link href={localePath(locale, 'contact')} className="btn-gold">{t(locale, 'cta_consult')}</Link>
                             <Link href={localePath(locale, 'services')} className="btn-outline">{t(locale, 'nav_services')}</Link>
@@ -104,7 +104,7 @@ export default function Home({ page, services }: Props) {
                                     {s[`title_${locale}`]}
                                 </h3>
                                 <p className="text-sm text-charcoal/70 line-clamp-3 prose-body">
-                                    {(s[`body_${locale}`] ?? '').split('\n')[0]}
+                                    {stripHtml(s[`body_${locale}`] ?? '')}
                                 </p>
                                 <span className="inline-block mt-4 text-gold text-sm font-medium">
                                     {t(locale, 'learn_more')} →

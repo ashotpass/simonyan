@@ -79,6 +79,10 @@ export function t(locale: Locale, key: keyof Dict): string {
     return dict[locale][key] ?? dict.en[key];
 }
 
+export function stripHtml(html: string): string {
+    return html.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
+}
+
 const slugs = {
     hy: { home: '', about: 'mer-masin', services: 'tsarayutyunner', director: 'tnoren', contact: 'kap' },
     en: { home: '', about: 'about', services: 'services', director: 'director', contact: 'contact' },

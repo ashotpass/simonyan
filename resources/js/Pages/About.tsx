@@ -24,7 +24,7 @@ export default function About({ page, director }: Props) {
                     </p>
                     <h1 className="text-4xl md:text-5xl font-bold mb-8">{title}</h1>
                     <div className="w-16 h-px bg-gold mb-8" />
-                    <div className="prose-body text-lg">{body}</div>
+                    <div className="prose-body text-lg" dangerouslySetInnerHTML={{ __html: body }} />
 
                     {director && (
                         <div className="mt-16 pt-12 border-t border-charcoal/10">
