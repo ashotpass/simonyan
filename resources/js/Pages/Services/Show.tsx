@@ -25,7 +25,7 @@ export default function ServiceShow({ service, services }: Props) {
                         </Link>
                         <h1 className="text-4xl md:text-5xl font-bold mb-6">{title}</h1>
                         <div className="w-16 h-px bg-gold mb-8" />
-                        <div className="prose-body text-lg">{body}</div>
+                        <div className="prose-body text-lg" dangerouslySetInnerHTML={{ __html: body }} />
 
                         <div className="mt-12 bg-charcoal text-cream p-8">
                             <p className="text-lg mb-4">

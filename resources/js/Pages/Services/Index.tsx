@@ -1,6 +1,6 @@
 import { Link, usePage } from '@inertiajs/react';
 import PublicLayout from '@/Layouts/PublicLayout';
-import { localePath, t } from '@/i18n';
+import { localePath, stripHtml, t } from '@/i18n';
 import type { PageRecord, ServiceRecord, SharedProps } from '@/types';
 
 interface Props { page: PageRecord; services: ServiceRecord[]; }
@@ -22,7 +22,7 @@ export default function ServicesIndex({ page, services }: Props) {
                     <div className="text-center mb-14" data-fade>
                         <h1 className="text-4xl md:text-5xl font-bold mb-6">{title}</h1>
                         <div className="w-16 h-px bg-gold mx-auto mb-6" />
-                        <p className="prose-body text-lg max-w-3xl mx-auto">{body}</p>
+                        <div className="prose-body text-lg max-w-3xl mx-auto" dangerouslySetInnerHTML={{ __html: body }} />
                     </div>
                     <div className="grid md:grid-cols-2 gap-6">
                         {services.map((s, i) => (
@@ -35,7 +35,7 @@ export default function ServicesIndex({ page, services }: Props) {
                             >
                                 <h3 className="text-2xl font-semibold mb-3">{s[`title_${locale}`]}</h3>
                                 <p className="prose-body text-sm line-clamp-3">
-                                    {(s[`body_${locale}`] ?? '').split('\n')[0]}
+                                    {stripHtml(s[`body_${locale}`] ?? '')}
                                 </p>
                                 <span className="inline-block mt-4 text-gold font-medium">
                                     {t(locale, 'learn_more')} →

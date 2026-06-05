@@ -28,7 +28,7 @@ export default function Contact({ page }: Props) {
                     <div className="text-center mb-14" data-fade>
                         <h1 className="text-4xl md:text-5xl font-bold mb-6">{title}</h1>
                         <div className="w-16 h-px bg-gold mx-auto mb-6" />
-                        <p className="prose-body text-lg max-w-2xl mx-auto">{body}</p>
+                        <div className="prose-body text-lg max-w-2xl mx-auto" dangerouslySetInnerHTML={{ __html: body }} />
                     </div>
 
                     <div className="grid lg:grid-cols-2 gap-10">

@@ -40,7 +40,7 @@ export default function Director({ page, director }: Props) {
                         </p>
                         <div className="w-16 h-px bg-gold mb-8" />
                         {director?.[`bio_${locale}`] && (
-                            <div className="prose-body text-lg mb-8">{director[`bio_${locale}`]}</div>
+                            <div className="prose-body text-lg mb-8" dangerouslySetInnerHTML={{ __html: director[`bio_${locale}`] ?? '' }} />
                         )}
                         {director?.[`expertise_${locale}`] && (
                             <div className="mb-8">
