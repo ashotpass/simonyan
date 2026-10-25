@@ -4,6 +4,11 @@ RUN apk upgrade --no-cache
 WORKDIR /app
 COPY package*.json ./
 RUN npm ci
+# Surface npm advisories in the build log. Fail the build on high/critical
+# so a serious regression stops the deploy; moderate/low are left as warnings
+# (the current moderate advisory on postcss-selector-parser is reachable only
+# through attacker-controlled CSS at build time, which isn't our threat model).
+RUN npm audit --audit-level=high || (echo "::error::npm audit found high/critical advisories" && exit 1)
 COPY . .
 RUN npm run build && npm run build:ssr
 
