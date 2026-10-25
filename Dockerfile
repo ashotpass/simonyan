@@ -1,4 +1,6 @@
 FROM node:20-alpine AS frontend
+# Apply Alpine security updates on top of the base image.
+RUN apk upgrade --no-cache
 WORKDIR /app
 COPY package*.json ./
 RUN npm ci
@@ -6,6 +8,8 @@ COPY . .
 RUN npm run build && npm run build:ssr
 
 FROM composer:2 AS vendor
+# Apply Alpine security updates on top of the base image.
+RUN apk upgrade --no-cache
 WORKDIR /app
 COPY composer.json composer.lock ./
 RUN composer install \
@@ -15,8 +19,15 @@ RUN composer install \
     --no-scripts \
     --ignore-platform-req=ext-intl \
     --ignore-platform-req=ext-gd
+# Surface any production-dep advisories in the build log. Non-blocking so a
+# newly disclosed CVE doesn't take the site offline, but visible so we act.
+RUN composer audit --no-dev --locked --format=plain || echo "::warning::composer audit flagged advisories (see above)"
 
 FROM dunglas/frankenphp:1-php8.4-alpine
+# Apply Alpine security updates (OpenSSL, CA certs, libxml, zlib, …) before
+# PHP extensions are compiled against them. The 1-php8.4-alpine floating tag
+# itself ships the latest PHP 8.4 patch release; this covers the OS layer.
+RUN apk upgrade --no-cache
 WORKDIR /app
 RUN install-php-extensions pdo_mysql mbstring gd zip intl bcmath
 RUN apk add --no-cache nodejs npm supervisor
@@ -31,6 +42,10 @@ RUN chown -R www-data:www-data storage bootstrap/cache && chmod -R 775 storage b
 COPY docker/supervisord.conf /etc/supervisord.conf
 COPY docker/entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
+
+# Print the PHP version at build time so Railway's build log shows exactly
+# which patch level is in the image (easy audit trail for CVE triage).
+RUN php -v
 
 EXPOSE 8080
 CMD ["/entrypoint.sh"]
